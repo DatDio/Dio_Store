@@ -1,0 +1,121 @@
+﻿@using ViewModel.Products;
+@model ProductCreateVM
+
+@{
+	ViewData["Title"] = "Thêm Sản Phẩm";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid">
+	<div class="content container-fluid">
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col-sm mb-2 mb-sm-0">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb breadcrumb-no-gutter">
+							<li class="breadcrumb-item"><a class="breadcrumb-link" href="./ecommerce-products.html">Products</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Add Product</li>
+						</ol>
+					</nav>
+
+					<h1 class="page-header-title">Thêm Sản Phẩm</h1>
+				</div>
+		
+			</div>
+	
+		</div>
+		<!-- End Page Header -->
+		<form method="post" enctype="multipart/form-data" >
+			<div >
+					<div class="card mb-3 mb-lg-5 shadow">
+						<!-- Header -->
+						<div class="card-header">
+							<h4 class="card-header-title">Thông tin sản phẩm</h4>
+						</div>
+						<!-- End Header -->
+						<!-- Body -->
+						<div class="card-body">
+							
+							<div class="mb-4">
+								<label for="productNameLabel" class="form-label">Hình ảnh sản phẩm
+									<i class="bi-question-circle text-body ms-1"></i></label>
+								<input type="file" name="images" multiple />
+							</div>
+							<!-- Form -->
+							<div class="mb-4">
+								<label for="productNameLabel" class="form-label">Tên <i class="bi-question-circle text-body ms-1"  ></i></label>
+
+								<input type="text" asp-for="ProductName" class="form-control" name="productName" id="productNameLabel">
+							</div>
+							<!-- End Form -->
+						<div class="form-group">
+							<label for="CategoryId">Category</label>
+							<select id="CategoryId" name="CategoryId" class="form-control">
+								@foreach (var category in Model.Categories)
+								{
+									<option value="@category.Id">@category.Name</option>
+								}
+							</select>
+						</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- Form -->
+									<div class="mb-4">
+										<label for="SKULabel" class="form-label">SKU</label>
+
+										<input type="text" class="form-control" name="SKU" id="SKULabel" placeholder="eg. 348121032" aria-label="eg. 348121032">
+									</div>
+									<!-- End Form -->
+								</div>
+								<!-- End Col -->
+
+								<div class="col-sm-6">
+									<!-- Form -->
+									<div class="mb-4">
+										<label for="weightLabel" class="form-label">Cân nặng</label>
+
+										<div class="input-group">
+											<input type="text" class="form-control" name="weightName" id="weightLabel" placeholder="0.0" aria-label="0.0">
+										</div>
+
+										<small class="form-text">Used to calculate shipping rates at checkout and label prices during fulfillment.</small>
+									</div>
+									<!-- End Form -->
+								</div>
+								<!-- End Col -->
+							</div>
+							<!-- End Row -->
+							<div class="mb-4">
+								<label class="form-label">Description <span class="form-label-secondary"></span></label>
+							<textarea asp-for="Description"></textarea>
+							</div>
+							
+							<div class="mb-4">
+								<label for="productNameLabel" class="form-label">Giá Gốc <i class="bi-question-circle text-body ms-1" ></i></label>
+
+							<input type="text" asp-for="SalePrice" class="form-control" name="SalePrice" id="productNameLabel">
+							</div>
+
+							<div class="mb-4">
+								<label for="productNameLabel" class="form-label">Giá Khuyến Mãi <i class="bi-question-circle text-body ms-1"></i></label>
+
+							<input type="text" asp-for="OriginalPrice" class="form-control" name="OriginalPrice" id="productNameLabel">
+							</div>
+						<div class="mb-4">
+							<label for="productNameLabel" class="form-label">Số Lượng <i class="bi-question-circle text-body ms-1"></i></label>
+
+							<input type="text" asp-for="Stock" class="form-control" name="Stock">
+						</div>
+						</div>
+						<!-- Body -->
+					</div>
+				<!-- End Col -->
+			</div>
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			<button id="" type="submit" class="w-100 btn btn-lg btn-primary">Thêm</button>
+		</form>
+
+	</div>
+</div>
+
+

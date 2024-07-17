@@ -1,0 +1,11 @@
+﻿#accordionSidebar {
+    background: #212934;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.sidebar-dark .nav-item .nav-link i{
+    color:black;
+}
+.row{
+    padding:0px !important;
+}

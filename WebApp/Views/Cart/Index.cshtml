@@ -1,0 +1,120 @@
+﻿@using ViewModel.Cart;
+
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ShoppingCartVM
+<form id="cart-form" method="get" asp-action="CreateOrder" asp-controller="Order">
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+            </div>
+        </div>
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                </ol>
+            </div>
+        </nav>
+        <div class="page-content">
+            <div class="cart">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-cart table-mobile">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Items.Count; i++)
+                                    {
+                                        <tr class="row-cart-index-@Model.Items[i].ProductId">
+                                            <td class="price-col">
+                                                <input type="checkbox" class="product-checkbox" value="@Model.Items[i].ProductId" />
+                                            </td>
+                                            <td class="product-col">
+                                                <div class="product">
+                                                    <figure class="product-media">
+                                                        <a href="#">
+                                                            <img src="~/Images/ProductImages/@Model.Items[i].Product.ProductImageVM[0].ImagePath" alt="@Model.Items[i].Product.ProductImageVM[0].Caption" class="product-image">
+                                                        </a>
+                                                    </figure>
+                                                    <h3 class="product-title">
+                                                        @Model.Items[i].Product.ProductName
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            <td class="price-col">
+                                                <span class="price-format">@Model.Items[i].Product.SalePrice</span>
+                                            </td>
+                                            <td class="quantity-col">
+                                                <div class="cart-product-quantity">
+                                                    <input type="number" class="form-control quantity-input" value="@Model.Items[i].Quantity" min="1" max="10" step="1" data-product-id="@Model.Items[i].ProductId" required>
+                                                </div>
+                                            </td>
+                                            <td class="total-col" id="total-price-@Model.Items[i].ProductId">
+                                                <span class="price-format">@Model.Items[i].GetSingleProductPrice()</span>
+                                            </td>
+                                            <td class="remove-col">
+                                                <button class="btn-remove remove-from-cart" data-product-id="@Model.Items[i].ProductId"><i class="icon-close"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div>
+                                <h6>Tổng tiền:<span class="price-format"> @Model.GetSumTotal()</span></h6>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="">
+                                    <button id="checkout-btn" type="button" class="btn btn-outline-primary-2 btn-order btn-block">Thanh Toán</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</form>
+
+@section Scripts {
+    <script src="~/js/cart.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            $('#checkout-btn').click(function() {
+                var selectedProductIDs = [];
+                $('.product-checkbox:checked').each(function() {
+                    selectedProductIDs.push($(this).val());
+                });
+
+                if (selectedProductIDs.length === 0) {
+                    toastr.error('Vui lòng chọn sản phẩm để mua hàng!');
+                    return;
+                }
+
+                var form = $('#cart-form');
+                form.find('input[name="ProductIds"]').remove(); // Clear previous hidden inputs if any
+                
+                selectedProductIDs.forEach(function(id) {
+                    form.append('<input type="hidden" name="ProductIds" value="' + id + '" />');
+                });
+
+                form.submit();
+            });
+        });
+    </script>
+}

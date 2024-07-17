@@ -1,0 +1,96 @@
+﻿@using ViewModel.Common
+@using ViewModel.Products
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model PagedResult<ProductVM>
+<div class="container-fluid">
+	<h1>Quản Lý Sản Phẩm</h1>
+
+	<div>
+		<table class="table table-hover table-bordered ">
+			<thead>
+				<tr>
+					<th>ProductID</th>
+					<th>Ảnh Sản Phẩm</th>
+					<th>Tên Sản Phẩm</th>
+					<th>Giá</th>
+					<th>Số Lượng</th>
+					<th>Hành Động</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var product in Model.Items)
+				{
+					<tr>
+						<td>@product.Id</td>
+						<td>
+							@foreach (var productImage in product.ProductImageVM)
+							{
+								if (productImage.IsDefault)
+								{
+									<img style="height:50px;width:50px;" src="~/Images/ProductImages/@productImage.ImagePath" alt="@productImage.Caption" />
+								}
+							}
+						</td>
+						<td>@product.ProductName</td>
+						<td>
+							@product.OriginalPrice
+							@if (@product.SalePrice != null)
+							{
+								<div>
+									@product.SalePrice
+								</div>
+							}
+						</td>
+						<td>
+							<div>
+								@product.Stock
+							</div>
+							<div>
+								@product.DateCreated.ToString("dd/MM/yyyy")
+							</div>
+
+						</td>
+						@*<td>@product.CategoryName</td>*@
+						<td>
+							<a href="/Admin/Product/Edit/@product.Id" class="btn btn-primary">Sửa</a>
+
+							<form method="post" action="/Admin/Product/Delete/@product.Id">
+								<button class="btn btn-danger" type="submit">Xóa</button>
+							</form>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+
+	<nav class="mt-4" aria-label="Page navigation example">
+		<ul class="pagination">
+			@if (Model.PageCount > 1)
+			{
+				<a class="page-link" href="?pageIndex=@(Model.PageIndex - 1)&pageSize=@Model.PageSize">Trang trước</a>
+			}
+			@for (var i = 1; i <= Model.PageCount; i++)
+			{
+
+				<li class="page-item @(i == Model.PageIndex ? "active" : "")">
+					<a class="page-link" href="?pageIndex=@i&pageSize=@Model.PageSize">@i</a>
+				</li>
+
+			}
+			@if (Model.PageCount > 1)
+			{
+				<a class="page-link" href="?pageIndex=@(Model.PageIndex+1)&pageSize=@Model.PageSize">Trang Tiếp</a>
+			}
+		</ul>
+	</nav>
+</div>
+@section Styles {
+	<link rel="stylesheet" href="~/css/admincss/admin-manage-product.css" asp-append-version="true" />
+}

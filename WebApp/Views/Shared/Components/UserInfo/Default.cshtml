@@ -1,0 +1,33 @@
+﻿@using ViewModel.Users
+@model UserVM
+
+@if (Model != null)
+{
+    <p>@Model.UserName</p>
+    <div class="dropdown dropdown-menu-left">
+        <div type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
+            <img style="height:50px;" class="img-profile rounded-circle" src="~/Images/ProfileImages/7fae5c49937386a0942c3ddaef1b5159.jpg">
+        </div>
+        <ul class="dropdown-menu">
+            @if (Model.Roles.Contains("Admin"))
+            {
+                <button class="btn"><a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Dashboard</a></button>
+            }
+            <button class="btn"> <a class="dropdown-item" href="#">Tài khoản</a></button>
+            <button class="btn"><a class="dropdown-item" href="#">Đơn mua</a></button>
+            <li class="dropdown-item">
+                <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                    @Html.AntiForgeryToken()
+                    <button id="logout" type="submit" class="btn">Đăng xuất</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div>
+        <a class="nav-link text-dark" id="register" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Đăng kí</a>
+    </div>
+}

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Dio_Store</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/admincss/admin-site.css" asp-append-version="true" />
+	<link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		  rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+	<link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+	@await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+	<div id="page-top">
+		<div id="wrapper">
+			@await Html.PartialAsync("_SidebarAdminPartial")
+			<div id="content-wrapper" class="d-flex flex-column">
+				<!-- Main Content -->
+				<div id="content">
+					@await Html.PartialAsync("_NavbarPartial")
+					@RenderBody()
+				</div>
+			</div>
+		</div>
+
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			 aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<form action="Account/Logout" method="post" id="logoutForm">
+							@Html.AntiForgeryToken()
+							<button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer-section">
+		<div class="container">
+			<div class="footer-cta pt-5 pb-5">
+				<div class="row">
+					<div class="col-xl-4 col-md-4 mb-30">
+						<div class="single-cta">
+							<i class="fas fa-map-marker-alt"></i>
+							<div class="cta-text">
+								<h4>Gia Dụng Dio</h4>
+								<span>Vĩnh Hưng, Hoàng Mai, Hà Nội</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-4 mb-30">
+						<div class="single-cta">
+							<i class="fas fa-phone"></i>
+							<div class="cta-text">
+								<h4>Hotline</h4>
+								<span>0393256343</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-md-4 mb-30">
+						<div class="single-cta">
+							<i class="far fa-envelope-open"></i>
+							<div class="cta-text">
+								<h4>Liên hệ với chúng tôi</h4>
+								<span>diostore1103@gmail.com</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-content pt-5 pb-5">
+				<div class="row">
+					<div class="col-xl-4 col-lg-4 mb-50">
+						<div class="footer-widget">
+							<div class="footer-logo">
+								<a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
+							</div>
+							<div class="footer-text">
+								<p>
+									Gia Dụng Dio là cửa hàng online chuyên cung cấp các đồ gia dụng thông minh, đồ dùng tiện ích với những mẫu mã, thiết kế và công nghệ tiên tiến nhất trên thế giới.
+								</p>
+							</div>
+							<div class="footer-social-icon">
+								<span>Theo dõi chúng tôi</span>
+								<a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+								<a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+								<a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+						<div class="footer-widget">
+							<div class="footer-widget-heading">
+								<h3>Chính Sách</h3>
+							</div>
+							<ul>
+								<li><a href="#">Trang Chủ</a></li>
+								<li><a href="#">Hướng dẫn mua hàng</a></li>
+								<li><a href="#">Về chúng tôi</a></li>
+								<li><a href="#">Dịch vụ</a></li>
+								<li><a href="#">Chính sách bảo mật thông tin</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+						<div class="footer-widget">
+							<div class="footer-widget-heading">
+								<h3>Đăng kí</h3>
+							</div>
+							<div class="footer-text mb-25">
+								<p>Đăng kí để nhận ưu đãi và thông báo mới nhất</p>
+							</div>
+							<div class="subscribe-form">
+								<form action="#">
+									<input type="text" placeholder="Email Address">
+									<button><i class="fab fa-telegram-plane"></i></button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-6 col-lg-6 text-center text-lg-left">
+						<div class="copyright-text">
+							<p>Copyright &copy; 2024, All Right Reserved </></p>
+						</div>
+					</div>
+					<div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+						<div class="footer-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#">Terms</a></li>
+								<li><a href="#">Privacy</a></li>
+								<li><a href="#">Policy</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
+	
+
+
+	<script src="~/vendor/jquery/jquery.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="~/js/sb-admin-2.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="~/vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="~/js/chart-area-demo.js"></script>
+	<script src="~/js/chart-pie-demo.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/custom-validation.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

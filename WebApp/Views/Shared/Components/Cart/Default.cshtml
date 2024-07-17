@@ -1,0 +1,72 @@
+﻿@using ViewModel.Cart;
+@model ShoppingCartVM
+<div class="header-right">
+	<div class="dropdown cart-dropdown">
+		<a class="dropdown-toggle" href="/Cart">
+			<i class="icon-shopping-cart"></i>
+			<span class="cart-count" id="cart-count">@Model.Items.Count()</span>
+		</a>
+
+		<div class="dropdown-menu dropdown-menu-right">
+			<div class="dropdown-cart-products">
+				@foreach (var item in Model.Items)
+				{
+					<a href="@Url.Action("Detail", "Product", new { productID = item.Product.Id })">
+						<div class="product">
+							<div class="product-cart-details">
+								<h4 class="product-title">
+									<a href="@Url.Action("Detail", "Product", new { productID = item.Product.Id })">@item.Product.ProductName</a>
+								</h4>
+
+								<span class="cart-product-info">
+									<span class="cart-product-qty">@item.Quantity</span>
+									x   <span class="price-format">@item.GetSingleProductPrice()</span>
+								</span>
+							</div><!-- End .product-cart-details -->
+
+							<figure class="product-image-container">
+								<a href="@Url.Action("Detail", "Product", new { productID = item.Product.Id })" class="product-image">
+									<img src="~/Images/ProductImages/@item.Product.ProductImageVM[0].ImagePath" alt="@item.Product.ProductImageVM[0].Caption" class="product-image">
+								</a>
+							</figure>
+						</div>
+						<!-- End .product -->
+					</a>
+				}
+				<div class="product">
+					<div class="product-cart-details">
+						<h4 class="product-title">
+							<a href="product.html">Blue utility pinafore denim dress</a>
+						</h4>
+
+						<span class="cart-product-info">
+							<span class="cart-product-qty">1</span>
+							x $76.00
+						</span>
+					</div><!-- End .product-cart-details -->
+
+					<figure class="product-image-container">
+						<a href="product.html" class="product-image">
+							<img src="assets/images/products/cart/product-2.jpg" alt="product">
+						</a>
+					</figure>
+					<a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+				</div><!-- End .product -->
+			</div><!-- End .cart-product -->
+
+			<div class="dropdown-cart-total">
+				<span>Total</span>
+
+				<span class="cart-total-price">
+					<span class="price-format">
+						@Model.GetSumTotal()
+					</span>
+				</span>
+			</div><!-- End .dropdown-cart-total -->
+
+			<div class="dropdown-cart-action justify-content-center">
+				<a href="/Cart" class="btn btn-primary">View Cart</a>
+			</div><!-- End .dropdown-cart-total -->
+		</div><!-- End .dropdown-menu -->
+	</div><!-- End .cart-dropdown -->
+</div>

@@ -1,0 +1,13 @@
+﻿#toast-container > .toast {
+    font-size: 14px; /* Tăng kích thước phông chữ */
+   
+    
+}
+
+#toast-container > .toast-success {
+    background-color: #51a351; /* Màu nền cho thông báo thành công */
+}
+
+#toast-container > .toast-error {
+    background-color: #bd362f; /* Màu nền cho thông báo lỗi */
+}
